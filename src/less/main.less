@@ -23,9 +23,18 @@
  * App-wide custom styles can go here.
  */
 
-ul {
-  padding: 0;
+// http://css-tricks.com/snippets/css/sticky-footer/
+html, body { height: 100%; }
+#main-container {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -200px;
+  &:after {
+    content: "";
+    display: block;
+  }
 }
+.footer, #main-container:after { height: 200px; }
 
 .footer {
   background-color: @footer-bg;
@@ -34,6 +43,9 @@ ul {
   border-top: 1px solid @footer-border;
 }
 
+ul {
+  padding: 0;
+}
 
 /**
  * Now that all app-wide styles have been applied, we can load the styles for
