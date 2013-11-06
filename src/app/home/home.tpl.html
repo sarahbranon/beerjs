@@ -1,4 +1,32 @@
 <div class="jumbotron">
-  Home!
+  These are some awesome reviews of delicious things.
 </div>
+<h3>Filter by...</h3>
+<div id="filters" class="row">
+  <div class="col-sm-3">
+    <label for="beerName">Beer name
+    <input id="beerName" ng-model="search.name"/>
+  </div>
 
+  <div class="col-sm-3">
+    <label for="type">Beer type
+    <select id="type" ng-options="o for o in beerTypes" ng-model="search.type"></select>
+  </div>
+
+  <div class="col-sm-3">
+    <label for="brewery">Brewery
+    <select id="brewery" ng-options="o for o in breweries" ng-model="search.brewery"></select>
+  </div>
+
+  <div class="col-sm-3">
+    <label for="pick">Our picks
+    <input type="checkbox" id="pick" ng-model="pick"></select>
+  </div>
+</div>
+<ul id="reviews">
+  <li ng-repeat="entry in filteredEntries = (entries | filter:search | pickFilter:pick)">
+    <strong ng-bind="entry.title"></strong>
+    <span ng-bind="entry.flavorNotes"></span>
+  </li>
+  <li ng-hide="filteredEntries.length">No results found.</li>
+</ul>
