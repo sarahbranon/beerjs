@@ -615,6 +615,12 @@ module.exports = function ( grunt ) {
         });
       }
     });
+
+    grunt.file.copy(this.data.dir + '/assets/beer.css', '../../beer/css/beer.css');
+    if (this.data.dir.match('bin')) {
+      grunt.file.copy(this.data.dir + '/assets/beer.js', '../../beer/js/beer.js');
+    }
+
   });
 
   /**

@@ -8,7 +8,7 @@
     <input id="beerName" ng-model="search.name"/>
   </div>
 
-  <div class="col-sm-3">
+<!--   <div class="col-sm-3">
     <label for="type">Beer type
     <select id="type" ng-options="o for o in beerTypes" ng-model="search.type"></select>
   </div>
@@ -16,17 +16,38 @@
   <div class="col-sm-3">
     <label for="brewery">Brewery
     <select id="brewery" ng-options="o for o in breweries" ng-model="search.brewery"></select>
-  </div>
+  </div> -->
 
   <div class="col-sm-3">
-    <label for="pick">Our picks
-    <input type="checkbox" id="pick" ng-model="pick"></select>
+    <label>Our picks
+    <label for="silver">Silver
+    <input type="checkbox" id="silver" ng-model="selected.silver"></select>
+    <label for="gold">Gold
+    <input type="checkbox" id="gold" ng-model="selected.gold"></select>
+  </div>
+  <div class="col-sm-3">
+    <label for="hasPairing">Has a food pairing
+    <input type="checkbox" id="hasPairing" ng-model="hasPairing"></select>
   </div>
 </div>
 <ul id="reviews">
-  <li ng-repeat="entry in filteredEntries = (entries | filter:search | pickFilter:pick)">
-    <strong ng-bind="entry.title"></strong>
-    <span ng-bind="entry.flavorNotes"></span>
+  <li ng-repeat="entry in filteredEntries = (entries | filter:search | pickFilter:selected | pairingFilter:hasPairing)">
+    <strong class="name" ng-bind="entry.name" ng-click="entry.hasFocus = !entry.hasFocus"></strong>
+    <span ng-bind="entry.impression"></span>
+    <div ng-if="entry.hasFocus" class="slide-animation">
+      <div ng-if="entry.tastingNotes">
+        <strong>Tasting Notes</strong>
+        <span ng-bind="entry.tastingNotes"></span>
+      </div>
+      <div ng-if="entry.date">
+        <strong>Tasting Date</strong>
+        <span ng-bind="entry.date"></span>
+      </div>
+      <div ng-if="entry.foodPairing">
+        <strong>Food Pairing</strong>
+        <span ng-bind="entry.foodPairing"></span>
+      </div>
+    </div>
   </li>
   <li ng-hide="filteredEntries.length">No results found.</li>
 </ul>

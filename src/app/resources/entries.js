@@ -12,18 +12,21 @@ angular.module('resources.entries', [])
       $http({
         cache: true,
         method: 'GET',
-        url: 'https://spreadsheets.google.com/feeds/list/0AjQnTCpoDlgXdEVXaUdFNGRLTy1RUXI3MUN1LUpSNVE/od6/public/values?alt=json'
+        url: 'https://spreadsheets.google.com/feeds/list/0AjQnTCpoDlgXdGV0SHJoQlFsb1IyUTYzTGkxNEJtalE/od6/public/values?alt=json'
       })
       .success(function(data) {
-        data = _.filter(data.feed.entry, function(entry) { return entry['gsx$publish']['$t'] === 'Yes'; });
+        var food;
+        data = _.filter(data.feed.entry, function(entry) { return entry['gsx$publish']['$t'] === 'TRUE'; });
         data = _.map(data, function(entry) {
+          if (entry['gsx$foodpairing']['$t'] !== 'n/a') { food = entry['gsx$foodpairing']['$t']; }
           return {
-            brewery: entry['gsx$brewery']['$t'],
-            flavorNotes: entry['gsx$flavornotes']['$t'],
+            date: entry['gsx$date']['$t'],
+            foodPairing: food,
+            impression: entry['gsx$impression']['$t'],
+            tastingNotes: entry['gsx$tastingnotes']['$t'],
             name: entry['gsx$name']['$t'],
-            pick: entry['gsx$pick']['$t'] === 'Yes',
-            title: entry['title']['$t'],
-            type: entry['gsx$type']['$t']
+            rank: entry['gsx$rank']['$t']
+            // type: entry['gsx$type']['$t']
           };
         });
         callback(data);

@@ -3,7 +3,8 @@ angular.module( 'beer', [
   'templates-common',
   'beer.home',
   'beer.about',
-  'ui.router'
+  'ui.router',
+  'ngAnimate'
 ])
 
 .config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
